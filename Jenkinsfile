@@ -1,42 +1,51 @@
 pipeline {
-    environment {
-        IMAGEN = "geobas/angular1"
-        USUARIO = 'USER_DOCKERHUB4'
-    }
+
     agent any
+
+    tools {
+
+        nodejs "NodeJS_14" // El nombre que le diste a la instalación de NodeJS
+
+    }
+
     stages {
-        stage('Clone') {
-            steps {
-                git branch: "master", url: 'https://github.com/geobasti222/angular1.git'
-            }
-        }
+
         stage('Build') {
+
             steps {
+
+                echo "Empezando el install..."
+
+                sh "npm install"
+
                 script {
-                    newApp = docker.build "$IMAGEN:$BUILD_NUMBER"
+
+                    def image = docker.build("simple-node-js-react-npm-app:${env.BUILD_ID}")
+
                 }
+
             }
+
         }
 
-        stage('Test') {
-            steps {
-                script {
-                    docker.image("$IMAGEN:$BUILD_NUMBER").inside('-u root') {
-                           sh 'apache2ctl -v'
-                        }
-                    }
-            }
-        }
+        stage('Run') {
 
-        stage('Deploy') {
             steps {
+
+                // Run the Docker container exposing port 3000
+
                 script {
-                    docker.withRegistry( '', USUARIO ) {
-                        newApp.push()
-                    }
+
+                    def image = docker.image("simple-node-js-react-npm-app:${env.BUILD_ID}")
+
+                    image.run('-p 3000:3000')
+
                 }
+
             }
+
         }
 
     }
+
 }
