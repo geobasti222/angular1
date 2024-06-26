@@ -1,7 +1,7 @@
 pipeline {
     environment {
         IMAGEN = "geobas/angular1"
-        USUARIO = 'geobas'
+        USUARIO = 'USER_DOCKERHUB'
     }
     agent any
     stages {
