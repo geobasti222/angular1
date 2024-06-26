@@ -38,7 +38,7 @@ pipeline {
 
                     def image = docker.image("simple-node-js-react-npm-app:${env.BUILD_ID}")
 
-                    image.run('-p 3000:3000')
+                    image.run('-p 3000:8060')
 
                 }
 
