@@ -4,7 +4,7 @@ pipeline {
 
     tools {
 
-        nodejs "NodeJS_14" // El nombre que le diste a la instalación de NodeJS
+        nodejs "NodeJS_18" // El nombre que le diste a la instalación de NodeJS
 
     }
 
