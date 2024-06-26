@@ -1,7 +1,7 @@
 pipeline {
     environment {
         IMAGEN = "geobas/angular1"
-        USUARIO = 'USER_DOCKERHUB'
+        USUARIO = 'USER_DOCKERHUB4'
     }
     agent any
     stages {
@@ -37,10 +37,6 @@ pipeline {
                 }
             }
         }
-        stage('Clean Up') {
-            steps {
-                sh "docker rmi $IMAGEN:$BUILD_NUMBER"
-                }
-        }
+
     }
 }
